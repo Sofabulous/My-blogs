@@ -1,29 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>YuKun's blogs</title>
 </head>
 <style type="text/css">
-* {
-    padding: 0;
-    margin: 0;
-}
-.center {
-    position: absolute;
-    top: 50%;
-    left:50%;
-    width: auto;
-    height: auto;
-    margin-top:-75px;
-    margin-left: -75px;
-}
+    * {
+        padding: 0;
+        margin: 0;
+    }
 
+    body {
+        height: 100%;
+        background-image: url("backgroundImage.jpg");
+        background-size: 100%;
+    }
+
+    div {
+        height: 300px;
+        width: 300px;
+        line-height: 300px;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -150px;
+        margin-top: -150px;
+    }
+
+    div a:link,
+    div a:visited {
+        color: #fff;
+        font-size: 2em;
+    }
 </style>
+
 <body>
-    <div style="position:absolute;z-index:-1;width:100%;height:100%;">
-        <img src="backgroundImage.jpg" width="100%" height="100%" />
+    <div>
+        <a href="catalogue.html">YuKun's blogs</a>
     </div>
-    <h1 class="center">YuKun's blogs</h1>
 </body>
+
 </html>
