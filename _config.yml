@@ -1,1 +1,14 @@
-theme: jekyll-theme-midnight
+auto: true
+
+markdown: rdiscount
+
+highlighter: 'pygments'
+#paginate: 8
+permalink: /:title
+
+name: “YuKun's Blog”
+title: YuKun's blog
+description: dream of YuKun.
+url: http://YuKun-s-diary.github.io
+feed: /atom.xml
+author_info: <a href="http://YuKun-s-diary.github.io/">YuKun's blogs</a>
