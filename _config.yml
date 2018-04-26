@@ -6,9 +6,9 @@ baseurl:           ""
 url:               "http://yukundream.com/"
 
 # Social Profiles
-twitter_username:  SBootstrap
-github_username:   BlackrockDigital
-facebook_username: StartBootstrap
+twitter_username:  JYKMaster
+github_username:   Sofabulous
+facebook_username: 靳宇坤
 
 # Build settings
 markdown:          kramdown
