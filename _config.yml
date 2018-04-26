@@ -1,0 +1,19 @@
+title:             YuKun's blogs
+email:             78700194@qq.com
+description:       宇坤的个人博客
+author:            YuKun
+baseurl:           "/My-blogs"
+url:               "https://sofabulous.github.io/My-blogs/"
+
+# Social Profiles
+twitter_username:  SBootstrap
+github_username:   BlackrockDigital
+facebook_username: StartBootstrap
+
+# Build settings
+markdown:          kramdown
+paginate:          5
+paginate_path:     "/posts/page:num/"
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
