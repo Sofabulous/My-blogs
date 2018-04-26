@@ -2,7 +2,8 @@ title:             YuKun's blogs
 email:             78700194@qq.com
 description:       宇坤的个人博客
 author:            YuKun
-url:               "http://yukundream.com"
+baseurl:           "My-blogs"
+url:               "https://sofabulous.github.io/My-blogs/"
 
 # Social Profiles
 twitter_username:  SBootstrap
