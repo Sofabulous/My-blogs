@@ -18,16 +18,15 @@ background: '/img/posts/2018-04-27-分而治之-img/cat.jpg'
 
 <p>如果尝试直接移动这么多的盘子，恐怕一时感到无从下手。这时采用分治思想，我们来看看当盘子数量少的时候，应该如何解决问题呢？<p>
 
-<p>一个盘子</p>
+<h3>一个盘子</h3>
 <p>将盘子从A移动到C：A->C</p>
 
-<p>两个盘子</p>
+<h3>两个盘子</h3>
 <p>将最大盘子之前的盘子从A移动到B：A->B</p>
 <p>将最大的盘子从A移动到C：A->C</p>
 <p>将最大盘子之前的盘子从B移动到C：B->C</p>
 
-<p>三个盘子</p>
-
+<h3>三个盘子</h3>
 <div style="text-align: center;">
 <img class="img-fluid" src="/img/posts/2018-04-27-分而治之-img/hanoi-3.gif" alt="hanoi-3">
 <span class="caption text-muted">3个盘子的汉诺塔演示-<a href="https://www.zhihu.com/people/GalAster/activities">作者：酱紫君</a></span>	
@@ -58,10 +57,9 @@ int main(int argc, const char * argv[]) {
 	
 //    作为linux C程序运行的预处理
 //    if (argc == 2) {
-//        const char *A = '3';
-//        int n = (int)A - 48;
-//        printf("%d\n", n);
-//        hanoi(2, 'A', 'B', 'C');
+//        const char * N = argv[1];
+//        int n = (int)(N[0] - 48);
+//        hanoi(n, 'A', 'B', 'C');
 //    }else{
 //        printf("please input n as number of plates");
 //    }
@@ -86,9 +84,11 @@ void hanoi(int n, char A, char B, char C) {
 </code></pre>
 
 <p>想要理解上述的递归程序，重点不在于对整个递归过程的推敲，而在于理解分而治之的处理过程。</p>
-<p>step1:将最大盘子之前的盘子从A移动到B：A->B(把冰箱的门打开)</p>
-<p>step2:将最大盘子从A移动到C：A->C(把大象放进去)</p>
-<p>step3:将最大盘子之前的盘子从B移动到C：B->C(把冰箱的门关上)</p>
+<ul>
+	<li>step1:将最大盘子之前的盘子从A移动到B：A->B(把冰箱的门打开)</li>
+	<li>step2:将最大盘子从A移动到C：A->C(把大象放进去)</li>
+	<li>step3:将最大盘子之前的盘子从B移动到C：B->C(把冰箱的门关上)</li>
+</ul> 
 
 <h2 class="section-heading">总结</h2>
 <p>重复性工作，并不是人类最擅长的部分，而计算机恰恰很擅长这样傻瓜式的重复性工作。编写递归算法，重点在于掌握分而治之的处理过程（怎么把面对的复杂问题，分解成规模更小的相同问题去解决），至于递归的栈调用，就交给傻乎乎的计算机去做吧。</p>
