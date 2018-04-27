@@ -5,40 +5,91 @@ subtitle: "从汉诺塔问题理解分而治之的算法思想"
 date:   2018-04-27 12:18:13 -0400
 background: '/img/posts/2018-04-27-分而治之-img/cat.jpg'
 ---
+<p>既然要讨论分而治之的算法思想，那么首先我们就要弄清楚：分而治之是什么？</p>
+
+<p>有时直接解决一个复杂的问题是相当困难的，往往绞尽脑汁，却无功而返。这时候，不妨换个思路，既然理解一个理解庞大的问题是如此吃力，不如把它看成一些独立，较容易的相同问题，以便逐个击破。ps:举一个不那么恰当的例子：既然找个适合的女朋友是如此困难，不如一步一步来，先学会和女生聊天好了。没错了，这就是分而治之的思想。</p>
+<p>作为算法思想，就不得不提到分而治之与递归的关系。用分治法解决问题，原问题被不断分解为较小的子问题，最后求出子问题的解。这与递归思想，简直如出一辙。这是因为如此，它们常常同时应用在算法设计之中，并由此产生许多高效的算法。</p>
+
+<h2 class="section-heading">汉诺塔问题</h2>
+
+<p>空说无凭，作为分治思想的经典问题，我们通过汉诺塔问题来说明实际解决问题中，如何运用分而治之的算法思想。</p>
+
+<p>相传在古印度圣庙中，有一种被称为<a href="https://baike.baidu.com/item/汉诺塔问题/1945186">汉诺塔(Hanoi)</a>的游戏。该游戏是在一块铜板装置上，有三根杆(编号A、B、C)，在A杆自下而上、由大到小按顺序放置64个金盘(如下图)。游戏的目标：把A杆上的金盘全部移到C杆上，并仍保持原有顺序叠好。操作规则：每次只能移动一个盘子，并且在移动过程中三根杆上都始终保持大盘在下，小盘在上，操作过程中盘子可以置于A、B、C任一杆上。</p>
+
+<p>如果尝试直接移动这么多的盘子，恐怕一时感到无从下手。这时采用分治思想，我们来看看当盘子数量少的时候，应该如何解决问题呢？<p>
+
+<p>一个盘子</p>
+<p>将盘子从A移动到C：A->C</p>
+
+<p>两个盘子</p>
+<p>将最大盘子之前的盘子从A移动到B：A->B</p>
+<p>将最大的盘子从A移动到C：A->C</p>
+<p>将最大盘子之前的盘子从B移动到C：B->C</p>
+
+<p>三个盘子</p>
 
 <div style="text-align: center;">
 <img class="img-fluid" src="/img/posts/2018-04-27-分而治之-img/hanoi-3.gif" alt="hanoi-3">
-<span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>	
+<span class="caption text-muted">3个盘子的汉诺塔演示-<a href="https://www.zhihu.com/people/GalAster/activities">作者：酱紫君</a></span>	
 </div>
 
+<p>如图，虽然三个盘子的搬运就显得略微复杂，但是它们的思想是一致的。</p>
 
-<p>Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.</p>
+<p>step1:将最大盘子之前的盘子从A移动到B：A->B</p>
+<p>A->C</p>
+<p>A->B</p>
+<p>C->B</p>
+<p>step2:将最大盘子从A移动到C：A->C</p>
+<p>A->C</p>
+<p>step3:将最大盘子之前的盘子从B移动到C：B->C</p>
+<p>B->A</p>
+<p>B->C</p>
+<p>A->C</p>
 
-<p>What was most significant about the lunar voyage was not that man set foot on the Moon but that they set eye on the earth.</p>
+<p>想到了这样的分解思路之后我们就可以写出相应的程序了。</p>
 
-<p>A Chinese tale tells of some men sent to harm a young girl who, upon seeing her beauty, become her protectors rather than her violators. That's how I felt seeing the Earth for the first time. I could not help but love and cherish her.</p>
+<pre><code>include &lt;stdio.h&gt;
+//计数变量
+int count = 1;
+//汉诺塔函数
+void hanoi(int n, char A, char B, char C);
 
-<p>For those who have seen the Earth from space, and for the hundreds and perhaps thousands more who will, the experience most certainly changes your perspective. The things that we share in our world are far more valuable than those which divide us.</p>
+int main(int argc, const char * argv[]) {
+	
+//    作为linux C程序运行的预处理
+//    if (argc == 2) {
+//        const char *A = '3';
+//        int n = (int)A - 48;
+//        printf("%d\n", n);
+//        hanoi(2, 'A', 'B', 'C');
+//    }else{
+//        printf("please input n as number of plates");
+//    }
+	
+//  一般的C程序
+	hanoi(3, 'A', 'B', 'C');
+	return 0;
+}
+void hanoi(int n, char A, char B, char C) {
+	if (n == 1) {
+		//只有一个盘子时，只需要把它从A柱移动到C柱
+		printf("第%d次移动，将第%d个盘子移动，从%c移动到%c\n", count++,n,A,C);
+	}else{
+		//step1:将最大盘子之前的盘子从A移动到B：A->B
+		hanoi(n - 1, A, C, B);
+		//step2:将最大盘子从A移动到C：A->C
+		printf("第%d次移动，将第%d个盘子移动，从%c移动到%c\n", count++,n,A,C);
+		//step3:将最大盘子之前的盘子从B移动到C：B->C
+		hanoi(n - 1, B, A, C);
+	}
+}
+</code></pre>
 
-<h2 class="section-heading">The Final Frontier</h2>
+<p>想要理解上述的递归程序，重点不在于对整个递归过程的推敲，而在于理解分而治之的处理过程。</p>
+<p>step1:将最大盘子之前的盘子从A移动到B：A->B(把冰箱的门打开)</p>
+<p>step2:将最大盘子从A移动到C：A->C(把大象放进去)</p>
+<p>step3:将最大盘子之前的盘子从B移动到C：B->C(把冰箱的门关上)</p>
 
-<p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
-
-<p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
-
-<blockquote class="blockquote">The dreams of yesterday are the hopes of today and the reality of tomorrow. Science has not yet mastered prophecy. We predict too much for the next year and yet far too little for the next ten.</blockquote>
-
-<p>Spaceflights cannot be stopped. This is not the work of any one man or even a group of men. It is a historical process which mankind is carrying out in accordance with the natural laws of human development.</p>
-
-<h2 class="section-heading">Reaching for the Stars</h2>
-
-<p>As we got further and further away, it [the Earth] diminished in size. Finally it shrank to the size of a marble, the most beautiful you can imagine. That beautiful, warm, living object looked so fragile, so delicate, that if you touched it with a finger it would crumble and fall apart. Seeing this has to change a man.</p>
-
-<img class="img-fluid" src="https://source.unsplash.com/Mn9Fa_wQH-M/800x450" alt="Demo Image">
-<span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
-
-<p>Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds, to seek out new life and new civilizations, to boldly go where no man has gone before.</p>
-
-<p>As I stand out here in the wonders of the unknown at Hadley, I sort of realize there’s a fundamental truth to our nature, Man must explore, and this is exploration at its greatest.</p>
-
-<p>Placeholder text by <a href="http://spaceipsum.com/">Space Ipsum</a>. Photographs by <a href="https://unsplash.com/">Unsplash</a>.</p>
+<h2 class="section-heading">总结</h2>
+<p>重复性工作，并不是人类最擅长的部分，而计算机恰恰很擅长这样傻瓜式的重复性工作。编写递归算法，重点在于掌握分而治之的处理过程（怎么把面对的复杂问题，分解成规模更小的相同问题去解决），至于递归的栈调用，就交给傻乎乎的计算机去做吧。</p>
+<blockquote class="blockquote">这次我们简单介绍了用分而治之思想去解决经典的汉诺塔问题，今后还会不定时的更新一些算法问题的解决思路，欢迎读者交流看法，分享观点。</blockquote> 
