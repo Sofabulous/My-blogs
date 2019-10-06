@@ -3,3 +3,7 @@ node_modules
 Gemfile.lock
 .sass-cache
 *.gem
+.DS_Store
+/.MWebMetaData
+.idea
+/.idea/workspace.xml
